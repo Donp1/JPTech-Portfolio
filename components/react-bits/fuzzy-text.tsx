@@ -56,9 +56,9 @@ export function FuzzyText({
     context.letterSpacing = styles.letterSpacing;
     context.textBaseline = "middle";
     const gradient = context.createLinearGradient(0, 0, width, 0);
-    gradient.addColorStop(0, "#f7fbff");
-    gradient.addColorStop(0.58, "#bcd0ee");
-    gradient.addColorStop(1, "#72c8ff");
+    gradient.addColorStop(0, "#f5f0e9");
+    gradient.addColorStop(0.58, "#ead2bd");
+    gradient.addColorStop(1, "#e9905b");
     context.fillStyle = gradient;
     context.fillText(text, 8, height / 2 + 1);
     sourceRef.current = source;

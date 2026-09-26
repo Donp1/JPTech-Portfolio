@@ -14,7 +14,7 @@ export function Brand({ compact = false }: { compact?: boolean }) {
           ? undefined
           : {
               scale: 1.035,
-              textShadow: "0 0 24px rgba(63, 172, 255, .45)",
+              textShadow: "0 0 24px rgba(233, 144, 91, .38)",
             }
       }
       transition={{ duration: 0.28, ease: "easeOut" }}

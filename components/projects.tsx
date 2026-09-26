@@ -189,12 +189,12 @@ export function Projects() {
             <span className="eyebrow-line" /> 01 / SELECTED WORK
           </span>
           <h2>
-            Proof in the <em>product.</em>
+            A few things <em>I&apos;ve built.</em>
           </h2>
         </div>
         <p>
-          A selection of mobile products and a web concept that show how I
-          think, design and build across the stack.
+          Real product work and one independent concept. Each piece shows a
+          different part of how I think, build and ship.
         </p>
       </div>
       <div className="project-list">

@@ -143,7 +143,7 @@ async function run() {
         assert.equal(await page.locator(".react-bits-true-focus").count(), 1);
         assert.equal(
           await page.locator(".react-bits-true-focus__word").count(),
-          7,
+          6,
         );
         assert.ok(
           await page

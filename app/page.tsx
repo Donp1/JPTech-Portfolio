@@ -18,7 +18,7 @@ import { SpotlightCard } from "@/components/react-bits/spotlight-card";
 import { ElectricBorder } from "@/components/react-bits/electric-border";
 import Particles from "@/components/react-bits/particles";
 
-const particleColors = ["#ffffff", "#e7edf5", "#c8d5e5"];
+const particleColors = ["#faf5ef", "#d8cec3", "#b5a89b"];
 
 const services = [
   {
@@ -100,10 +100,10 @@ export default function HomePage() {
               >
                 <ElectricBorder
                   className="service-electric-border"
-                  color="#72c8ff"
+                  color="#bb6c46"
                   chaos={0.22}
                   speed={0.7 + index * 0.08}
-                  borderRadius={12}
+                  borderRadius={4}
                 >
                   <SpotlightCard className="service-card">
                     <div className="service-card__inner">
@@ -157,7 +157,7 @@ export default function HomePage() {
             <Reveal className="contact-reveal" delay={0.12}>
               <ElectricBorder
                 className="contact-electric-border"
-                color="#72c8ff"
+                color="#e79a6b"
                 chaos={0.17}
                 speed={0.8}
                 borderRadius={14}

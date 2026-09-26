@@ -9,7 +9,7 @@ import { BlurText } from "@/components/react-bits/blur-text";
 import { Magnet } from "@/components/react-bits/magnet";
 import { TrueFocus } from "@/components/react-bits/true-focus";
 
-const words = ["Building", "what's", "next", "for", "web", "&", "mobile."];
+const words = ["From", "first", "tap", "to", "final", "API."];
 
 function HeroMesh() {
   const reduceMotion = useReducedMotionPreference();
@@ -43,9 +43,9 @@ function HeroMesh() {
         <svg viewBox="0 0 500 500" fill="none" role="presentation">
           <defs>
             <linearGradient id="meshStroke" x1="0" y1="0" x2="500" y2="500">
-              <stop stopColor="#89E1FF" />
-              <stop offset=".45" stopColor="#4277FF" />
-              <stop offset="1" stopColor="#9B67E7" />
+              <stop stopColor="#FFD0AC" />
+              <stop offset=".45" stopColor="#CE8052" />
+              <stop offset="1" stopColor="#786452" />
             </linearGradient>
           </defs>
           <circle
@@ -94,7 +94,7 @@ function HeroMesh() {
             cx="250"
             cy="250"
             r="87"
-            fill="#0D1A37"
+            fill="#211A17"
             stroke="url(#meshStroke)"
             strokeOpacity=".6"
           />
@@ -102,26 +102,26 @@ function HeroMesh() {
             cx="250"
             cy="250"
             r="64"
-            fill="#101F43"
-            stroke="#83D8FF"
+            fill="#2B211B"
+            stroke="#E9A373"
             strokeOpacity=".45"
           />
           <path
             d="M204 254L235 223M204 254L235 285M296 254L265 223M296 254L265 285"
-            stroke="#AEEBFF"
+            stroke="#F5D3B5"
             strokeWidth="3"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
           <path
             d="M259 211L242 297"
-            stroke="#79A7FF"
+            stroke="#D79A70"
             strokeWidth="3"
             strokeLinecap="round"
           />
-          <circle cx="250" cy="72" r="6" fill="#A8E6FF" />
-          <circle cx="424" cy="250" r="5" fill="#6B91FF" />
-          <circle cx="122" cy="131" r="4" fill="#87C7FF" />
+          <circle cx="250" cy="72" r="6" fill="#F1BB91" />
+          <circle cx="424" cy="250" r="5" fill="#D38C60" />
+          <circle cx="122" cy="131" r="4" fill="#F1BB91" />
         </svg>
       </motion.div>
       <motion.div
@@ -168,17 +168,17 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <span className="eyebrow-line" /> JPTECH / DIGITAL CRAFT
+          <span className="eyebrow-line" /> JOSEPH CHUKWUKA PRECIOUS / JPTECH
         </motion.div>
         <TrueFocus
           words={words}
           className="hero-title"
-          ariaLabel="Building what's next for web and mobile."
+          ariaLabel="From first tap to final API."
           accentStart={4}
         />
         <BlurText
           className="hero-description"
-          text="I'm Joseph Chukwuka Precious, a full-stack web and mobile developer crafting refined interfaces and dependable systems in the JavaScript ecosystem."
+          text="I build web and mobile products end to end, from the interface people touch to the systems that keep everything moving."
           delay={48}
         />
         <motion.div
@@ -189,7 +189,7 @@ export function Hero() {
         >
           <Magnet>
             <a className="button button--primary" href="#work">
-              Explore my work <ArrowUpRight size={18} />
+              See selected work <ArrowUpRight size={18} />
             </a>
           </Magnet>
           <a className="text-link" href="#contact">
