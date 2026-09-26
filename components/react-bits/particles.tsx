@@ -141,26 +141,37 @@ const Particles: React.FC<ParticlesProps> = ({
       const stars = Array.from({ length: particleCount }, () => ({
         x: Math.random(),
         y: Math.random(),
-        radius: 0.75 + Math.random() * 1.05,
+        radius: 0.85 + Math.random() * 1.75,
         phase: Math.random() * Math.PI * 2,
         color: palette[Math.floor(Math.random() * palette.length)],
       }));
       let frame = 0;
       let width = 0;
       let height = 0;
+      let pointer = { x: -1000, y: -1000 };
       const draw = (time: number) => {
         context.clearRect(0, 0, width, height);
         stars.forEach((star) => {
           const drift = reduceMotion
             ? 0
             : Math.sin(time * 0.00012 + star.phase) * 8;
-          context.globalAlpha =
-            0.42 + (Math.sin(time * 0.0008 + star.phase) + 1) * 0.22;
+          const baseX = star.x * width;
+          const baseY = star.y * height + drift;
+          const dx = baseX - pointer.x;
+          const dy = baseY - pointer.y;
+          const distance = Math.hypot(dx, dy);
+          const push =
+            moveParticlesOnHover && distance < 160
+              ? (1 - distance / 160) * particleHoverFactor * 38
+              : 0;
+          context.globalAlpha = reduceMotion
+            ? 0.64
+            : 0.42 + (Math.sin(time * 0.0008 + star.phase) + 1) * 0.22;
           context.fillStyle = star.color;
           context.beginPath();
           context.arc(
-            star.x * width,
-            star.y * height + drift,
+            baseX + (distance ? (dx / distance) * push : 0),
+            baseY + (distance ? (dy / distance) * push : 0),
             star.radius,
             0,
             Math.PI * 2,
@@ -188,6 +199,14 @@ const Particles: React.FC<ParticlesProps> = ({
         if (!document.hidden && !reduceMotion)
           frame = requestAnimationFrame(tick);
       };
+      const onPointerMove = (event: PointerEvent) => {
+        pointer = { x: event.clientX, y: event.clientY };
+        if (reduceMotion) draw(performance.now());
+      };
+      if (moveParticlesOnHover)
+        window.addEventListener("pointermove", onPointerMove, {
+          passive: true,
+        });
       window.addEventListener("resize", resize);
       document.addEventListener("visibilitychange", onVisibility);
       resize();
@@ -195,6 +214,8 @@ const Particles: React.FC<ParticlesProps> = ({
       return () => {
         cancelAnimationFrame(frame);
         window.removeEventListener("resize", resize);
+        if (moveParticlesOnHover)
+          window.removeEventListener("pointermove", onPointerMove);
         document.removeEventListener("visibilitychange", onVisibility);
         container.removeChild(canvas);
       };
@@ -222,15 +243,18 @@ const Particles: React.FC<ParticlesProps> = ({
     window.addEventListener("resize", resize, false);
     resize();
 
-    const handleMouseMove = (e: MouseEvent) => {
+    const handleMouseMove = (e: PointerEvent) => {
       const rect = container.getBoundingClientRect();
       const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       const y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
       mouseRef.current = { x, y };
+      if (reduceMotion) update(performance.now());
     };
 
     if (moveParticlesOnHover) {
-      container.addEventListener("mousemove", handleMouseMove);
+      window.addEventListener("pointermove", handleMouseMove, {
+        passive: true,
+      });
     }
 
     const count = particleCount;
@@ -328,7 +352,7 @@ const Particles: React.FC<ParticlesProps> = ({
       window.removeEventListener("resize", resize);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       if (moveParticlesOnHover) {
-        container.removeEventListener("mousemove", handleMouseMove);
+        window.removeEventListener("pointermove", handleMouseMove);
       }
       cancelAnimationFrame(animationFrameId);
       if (container.contains(gl.canvas)) {

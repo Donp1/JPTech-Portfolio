@@ -18,7 +18,7 @@ import { SpotlightCard } from "@/components/react-bits/spotlight-card";
 import { ElectricBorder } from "@/components/react-bits/electric-border";
 import Particles from "@/components/react-bits/particles";
 
-const particleColors = ["#92ddff", "#58b7ff", "#7894ff"];
+const particleColors = ["#ffffff", "#e7edf5", "#c8d5e5"];
 
 const services = [
   {
@@ -60,12 +60,14 @@ export default function HomePage() {
       <div className="site-particles" aria-hidden="true">
         <Particles
           particleCount={230}
-          particleSpread={15}
+          particleSpread={9}
           speed={0.075}
           particleColors={particleColors}
+          moveParticlesOnHover
+          particleHoverFactor={0.55}
           alphaParticles
-          particleBaseSize={90}
-          sizeRandomness={0.7}
+          particleBaseSize={150}
+          sizeRandomness={1.3}
           cameraDistance={20}
         />
       </div>

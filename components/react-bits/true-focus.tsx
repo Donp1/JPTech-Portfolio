@@ -25,7 +25,7 @@ export function TrueFocus({
   accentStart = words.length,
   animationDuration = 0.5,
   pauseBetweenAnimations = 1.05,
-  blurAmount = 0.45,
+  blurAmount = 1.25,
 }: TrueFocusProps) {
   const reduceMotion = useReducedMotionPreference();
   const containerRef = useRef<HTMLHeadingElement>(null);

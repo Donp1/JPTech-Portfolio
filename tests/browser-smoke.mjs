@@ -22,7 +22,8 @@ async function run() {
       const errors = [];
       page.on("pageerror", (error) => errors.push(error.message));
       page.on("console", (entry) => {
-        if (entry.type() === "error") errors.push(entry.text());
+        if (entry.type() === "error")
+          errors.push(`${entry.text()} ${entry.location().url}`);
       });
       await page.goto("http://localhost:3000", { waitUntil: "networkidle" });
       await page.getByRole("heading", { level: 1 }).waitFor();
@@ -126,11 +127,37 @@ async function run() {
             .evaluate((canvas) => canvas.width > 0 && canvas.height > 0),
           "Particles background should render a viewport-sized canvas",
         );
+        const particlesBefore = await page
+          .locator(".site-particles canvas")
+          .evaluate((canvas) => canvas.toDataURL());
+        await page.mouse.move(720, 450);
+        const particlesAfter = await page
+          .locator(".site-particles canvas")
+          .evaluate((canvas) => canvas.toDataURL());
+        assert.notEqual(
+          particlesAfter,
+          particlesBefore,
+          "Particles should respond to pointer movement even though the background cannot intercept clicks",
+        );
         assert.equal(await page.locator(".react-bits-blur-text").count(), 1);
         assert.equal(await page.locator(".react-bits-true-focus").count(), 1);
         assert.equal(
           await page.locator(".react-bits-true-focus__word").count(),
           7,
+        );
+        assert.ok(
+          await page
+            .locator(".react-bits-true-focus__word")
+            .evaluateAll((words) =>
+              words.some(
+                (word) =>
+                  parseFloat(
+                    getComputedStyle(word).filter.match(/blur\(([^p]+)/)?.[1] ??
+                      "0",
+                  ) >= 1,
+              ),
+            ),
+          "Out-of-focus hero words should have a stronger blur",
         );
         await page.waitForFunction(() => {
           const frame = document.querySelector(".react-bits-true-focus__frame");
